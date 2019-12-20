@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<p> <b>Begin date:</b> {{date_begin}}  <b>End date:</b> {{date_end}}  <b>Callsign:</b> {{callsign}}</p>
+
+<div class="plots_row">
+  <div class="plots_column">
+    <img src="{{ filename1 }}">
+    <img src="{{ filename2 }}">
+  </div>
+  <div class="plots_column">
+    <img src="{{ filename3 }}">
+    <img src="{{ filename4 }}">
+  </div>
+</div>
+
+{% endblock %}

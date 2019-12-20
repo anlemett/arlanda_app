@@ -1,0 +1,85 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <p> Begin date: {{date_begin}} </p>
+
+    <p> End date: {{date_end}} </p>
+
+
+    <table  border="1" style="width:100%">
+        <tr>
+            <th>PI name</th>
+            <th>PI value</th> 
+            <th>Data source</th>
+        </tr>
+        <tr>
+            <td>Number of flights</td>
+            <td>{{ddr_number_of_flights}}</td> 
+            <td>DDR</td>
+        </tr>
+        <tr>
+            <td>Total arrival delay</td>
+            <td>{{total_arrival_delay}}</td> 
+            <td>DDR</td>
+        </tr>
+        <tr>
+            <td>Average arrival delay</td>
+            <td>{{average_arrival_delay}} min</td> 
+            <td>DDR</td>
+        </tr>
+        <tr>
+            <td>KPI 14 1B (% of arrivals delayed ≤ 5 minutes versus schedule)</td>
+            <td>{{kpi14_1b}} %</td> 
+            <td>DDR</td>
+        </tr>
+
+        <tr>
+            <td>KPI 14 2B (% of arrivals delayed ≤ 15 minutes versus schedule)</td>
+            <td>{{kpi14_2b}} %</td> 
+            <td>DDR</td>
+        </tr>
+
+        <tr>
+            <td>Total departure delay</td>
+            <td>{{total_departure_delay}}</td> 
+            <td>DDR</td>
+        </tr>
+        <tr>
+            <td>Average departure delay</td>
+            <td>{{average_departure_delay}} min</td> 
+            <td>DDR</td>
+        </tr>
+        <tr>
+            <td>Average additional time in TMA</td>
+            <td>{{average_add_time_in_TMA}} min</td> 
+            <td>DDR</td>
+        </tr>
+        <tr>
+            <td>Number of flights</td>
+            <td>{{opensky_number_of_flights}}</td> 
+            <td>Opensky</td>
+        </tr>
+        <tr>
+            <td>Percentage of flights considered as level flights inside TMA</td>
+            <td>{{P}} %</td> 
+            <td>Opensky</td>
+        </tr>
+        <tr>
+            <td>Average number of level segments inside TMA</td>
+            <td>{{L_avg}}</td> 
+            <td>Opensky</td>
+        </tr>
+        <tr>
+            <td>Average distance flown level inside TMA</td>
+            <td>{{D_avg}} NM</td> 
+            <td>Opensky</td>
+        </tr>
+        <tr>
+            <td>Average time flown level inside TMA</td>
+            <td>{{T_avg}} min</td> 
+            <td>Opensky</td>
+        </tr>
+     </table>
+    
+{% endblock %}

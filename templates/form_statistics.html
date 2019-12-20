@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div id="main">
+
+        {% from "formhelpers.html" import render_field %}
+        <form method=post>
+          <dl>
+            {{ render_field(form.date_begin) }}
+            {{ render_field(form.date_end) }}
+          </dl>
+          <p><input type=submit value="Submit">
+        </form>
+
+    </div>
+{% endblock %}

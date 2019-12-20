@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div id="main">
+        <h2>Arrivals within the given time interval </h2>
+
+        {% from "formhelpers.html" import render_field %}
+
+        <form method=post>
+          <dl>
+            {{ render_field(form.date_begin) }}
+            {{ render_field(form.date_end) }}
+            {{ render_field(form.callsign) }}
+          </dl>
+          
+          <p> <input type="checkbox" name="checkbox-ddr-m1"/> DDR m1 </p>
+          <p> <input type="checkbox" name="checkbox-ddr-m3"/> DDR m3 </p>
+          <p> <input type="checkbox" name="checkbox-opensky"/> Opensky </p>
+          
+          
+          <p><input type=submit value="Submit">
+        </form>
+
+    </div>
+{% endblock %}

@@ -1,0 +1,52 @@
+ul#navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+li.navbar-item {
+    float: left;
+}
+
+li.navbar-item a {
+    display: block;
+    color: grey;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li.navbar-item a:hover:not(.active) {
+    background-color: #111;
+}
+
+ul#optionslist{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+li.optionslist-item {
+  margin: 20px 0;
+}
+
+li.optionslist-item a{
+  color: grey;
+  text-align: left;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.plots_row {
+  display: flex;
+}
+
+img {
+	max-width: 450px;
+	width: 100%;
+	height: auto;
+    display: block;
+    margin:0px auto;
+}
