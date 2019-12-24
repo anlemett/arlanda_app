@@ -81,13 +81,14 @@ def get_international_tracks(tracks_df):
 
 def get_stat(csv_input_file):
     df = pd.read_csv(csv_input_file, sep=' ',
-                     names = ['endDate', 'number_of_flights', 'delayed_5_min_flights_number', 'delayed_15_min_flights_number',
+                     names = ['endDate', 'number_of_flights', 'arrival_delayed_15_min_flights_number', 'enroute_delayed_15_min_flights_number',
                               'total_departure_delay', 'average_departure_delay', 'total_arrival_delay', 'average_arrival_delay',
-                              'average_add_time'],
+                              'total_enroute_delay', 'average_enroute_delay', 'total_add_time_TMA', 'average_add_time'],
                      index_col=[0],
                      dtype={'flightId':int, 'endDate':str, 'endTime':str, 'departure_delay':int, 'arrival_delay':int, 'add_time':int})
 
     return df
+
 
 def calculate_fuel_inside_TMA(tracks_df, fuel_csv_filename, fuel_png_filename, vfe_csv_filename):
     fuel_consumption_df = pd.DataFrame()

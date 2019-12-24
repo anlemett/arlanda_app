@@ -60,8 +60,8 @@ def get_international_tracks(tracks_df):
 def get_all_states(csv_input_file):
 
     df = pd.read_csv(csv_input_file, sep=' ', index_col=[0,1],
-                    names = ['flightId', 'sequence', 'altitude', 'velocity', 'beginDate'],
-                    dtype={'flightId':int, 'sequence':int, 'altitude':float, 'velocity':float, 'beginDate':str})
+                    names = ['flightId', 'sequence', 'timestamp', 'lat', 'lon', 'altitude', 'velocity', 'endDate', 'aircraftType'],
+                    dtype={'flightId':int, 'sequence':int, 'timestamp':str, 'lat':float, 'lon':float, 'altitude':int, 'velocity':int, 'endDate':str, 'aircraftType':str})
     
     return df
 

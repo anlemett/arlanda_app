@@ -317,13 +317,12 @@ def view_statistics_form():
             total_arrival_delay_str = str(timedelta(seconds=total_arrival_delay))
             average_arrival_delay_str  = "{0:.1f}".format(average_arrival_delay/60)
 
-            delayed_5_min_flights_number = int(np.sum(df['delayed_5_min_flights_number']))
-            kpi14_1b = (ddr_number_of_flights - delayed_5_min_flights_number)/ddr_number_of_flights*100
-            kpi14_1b_str = "{0:.1f}".format(kpi14_1b)
+            #arrival_delayed_5_min_flights_number = int(np.sum(df['arrival_delayed_5_min_flights_number']))
+            #kpi14_1b = (ddr_number_of_flights - arrival_delayed_5_min_flights_number)/ddr_number_of_flights*100
+            #kpi14_1b_str = "{0:.1f}".format(kpi14_1b)
 
-            delayed_15_min_flights_number = int(np.sum(df['delayed_15_min_flights_number']))
-            print(delayed_15_min_flights_number)
-            kpi14_2b = (ddr_number_of_flights - delayed_15_min_flights_number)/ddr_number_of_flights*100
+            arrival_delayed_15_min_flights_number = int(np.sum(df['arrival_delayed_15_min_flights_number']))
+            kpi14_2b = (ddr_number_of_flights - arrival_delayed_15_min_flights_number)/ddr_number_of_flights*100
             kpi14_2b_str = "{0:.1f}".format(kpi14_2b)
 
             total_departure_delay = int(np.sum(df['total_departure_delay']))
@@ -372,7 +371,7 @@ def view_statistics_form():
         return render_template('statistics.html', date_begin = date_begin, date_end = date_end,
                                 ddr_number_of_flights = ddr_number_of_flights,
                                 total_arrival_delay = total_arrival_delay_str, average_arrival_delay = average_arrival_delay_str,
-                                kpi14_1b = kpi14_1b_str, kpi14_2b = kpi14_2b_str,
+                                kpi14_2b = kpi14_2b_str,
                                 total_departure_delay = total_departure_delay_str,
                                 average_departure_delay = average_departure_delay_str,
                                 average_add_time_in_TMA = average_add_time_str,
