@@ -364,7 +364,7 @@ def view_statistics_form():
             average_distance_flown_level = sum_of_average_distance_flown_level/opensky_number_of_days            
             average_distance_flown_level_str = "{0:.1f}".format(average_distance_flown_level)
 
-            sum_of_average_time_flown_level = int(np.sum(df['average_time_on_levels']))
+            sum_of_average_time_flown_level = np.sum(df['average_time_on_levels'])
             average_time_flown_level = sum_of_average_time_flown_level/opensky_number_of_days
             average_time_flown_level_str  = "{0:.1f}".format(average_time_flown_level)
 
