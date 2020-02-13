@@ -36,6 +36,8 @@ def make_traj_lat_ddr_plot(plt, tracks_df, color):
 def make_traj_lat_opensky_plot(plt, tracks_df, color):
 
     for flight_id, new_df in tracks_df.groupby(level='flightId'):
+        print("lateral plot")
+        print(flight_id)
         lon = []
         lat = []
         for seq, row in new_df.groupby(level='sequence'):
@@ -136,6 +138,9 @@ def save_traj_lat_plots(full_filename_lat, full_filename_lat_zoom, full_filename
   
 def make_traj_vert_plot(plt, is_ddr_m1, is_ddr_m3, is_opensky, 
                         tracks_ddr_m1_df, tracks_ddr_m3_df, tracks_opensky_df, states_opensky_df):
+    
+    #print("plot")
+    
     plt.figure(figsize=(9,6))
     plt.xlabel('Time [sec]', fontsize=25)
     plt.ylabel('Altitude [m]', fontsize=25)
@@ -143,7 +148,11 @@ def make_traj_vert_plot(plt, is_ddr_m1, is_ddr_m3, is_opensky,
     plt.tick_params(labelsize=15)
     
     #DDR m1
+    pd.set_option('display.max_columns', 100)
+    print("ddr m1")
+    print(tracks_ddr_m1_df.head())
     for flight_id, flight_id_group in tracks_ddr_m1_df.groupby(level='flightId'):
+        print("ddr m1", flight_id)
         ddr_m1_altitudes = []
         ddr_m1_times = []
 
@@ -158,21 +167,20 @@ def make_traj_vert_plot(plt, is_ddr_m1, is_ddr_m3, is_opensky,
         ddr_m3_altitudes = []
         ddr_m3_times = []
         
+        
+    #DDR m3
+    print("ddr m3")
+    print(tracks_ddr_m3_df.head())
+    for flight_id, flight_id_group in tracks_ddr_m3_df.groupby(level='flightId'):
+        print("ddr m3", flight_id)
         if is_ddr_m3:
-            try:
-                #DDR m3
-                flight_tracks_ddr_m3_df = tracks_ddr_m3_df.loc[(flight_id,), :]
-                        
-                ddr_m3_timestamp1 = flight_tracks_ddr_m3_df.head(1)['beginTimestamp'].item()
-                for seq, row in flight_tracks_ddr_m3_df.groupby(level='sequence'):
-                    ddr_m3_times.append(row['beginTimestamp'].item() - ddr_m3_timestamp1)
-                    ddr_m3_altitudes.append(row['beginAltitude'].item())
+            ddr_m3_timestamp1 = flight_id_group.head(1)['beginTimestamp'].item()
+            
+            for seq, row in flight_id_group.groupby(level='sequence'):
+                ddr_m3_times.append(row['beginTimestamp'].item() - ddr_m3_timestamp1)
+                ddr_m3_altitudes.append(row['beginAltitude'].item())
 
                 #plt.plot(ddr_m3_times, ddr_m3_altitudes, color=color_ddr_m3, linewidth = 4)
-            except KeyError:
-                print("No ddr m3 tracks data")
-            except:
-                print("Exception in ddr m3 tracks reading")
         
 
         flight_tracks_opensky_df = pd.DataFrame()
@@ -180,6 +188,11 @@ def make_traj_vert_plot(plt, is_ddr_m1, is_ddr_m3, is_opensky,
             #Opensky tracks
             
             try:
+                
+                print("vertical plot tracks")
+                print(flight_id)
+                print("opensky tracks")
+                print(tracks_opensky_df.head())
         
                 flight_tracks_opensky_df = tracks_opensky_df.loc[(flight_id,), :]
       
@@ -226,11 +239,12 @@ def make_traj_vert_plot(plt, is_ddr_m1, is_ddr_m3, is_opensky,
 
             #Opensky States
             try:
+                
+                print("vertical plot states")
+                print(flight_id)
+                
                 flight_states_opensky_df = states_opensky_df.loc[(flight_id,), :]
                 
-                print(flight_id)
-                print(flight_states_opensky_df)
-        
                 if not flight_states_opensky_df.empty:
                     opensky_states_altitudes = []
                     opensky_states_times = []
