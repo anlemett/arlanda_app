@@ -143,7 +143,7 @@ def calculate_C_F_turbofan(h, v, descent, delta, THETA):
                       (c[18] + c[19]*M + c[20]*M**2 + c[21]*M**3 + c[22]*M**4 + c[23]*M**5)*THETA_t**3 +
                       (c[24] + c[25]*M + c[26]*M**2 + c[27]*M**3 + c[28]*M**4 + c[29]*M**5)*THETA_t**4 +
                       (c[30] + c[31]*M + c[32]*M**2 + c[33]*M**3 + c[34]*M**4 + c[35]*M**5)*THETA_t**5)
-            log_file.write("THETA_T = %f\r\n" % THETA_T)
+            log_file.write("THETA_t = %f\r\n" % THETA_t)
             log_file.write("delta_T = %f\r\n" % delta_T)
         # thrust coefficient:
         C_T = (a[0] + a[1]*M + a[2]*M**2 + a[3]*M**3 + a[4]*M**4+ a[5]*M**5 +
@@ -169,11 +169,11 @@ def calculate_C_F_turbofan(h, v, descent, delta, THETA):
 def calculate_C_F_turboprop(h, v, descent, delta, THETA):
 
     global fi, f, p, a
-    v = s/t
+    # v = s/t
     M = calculate_M(v, h)
 
     C_F = 0
-    С_F_idle = ((fi[0] + fi[1]*delta + fi[2]*delta**2 +
+    C_F_idle = ((fi[0] + fi[1]*delta + fi[2]*delta**2 +
                 (fi[3] + fi[4]*delta + fi[5]*delta**2)*M +
                 (fi[6] + fi[7]*delta + fi[8]*delta**2)*M**2 +
                 fi[9]*THETA + fi[10]*THETA**2 + fi[11]*M*THETA + fi[12]*M*delta*math.sqrt(THETA) +
@@ -296,6 +296,6 @@ def parse_bada(aircraft_type):
     for cpsfc in root.findall("./PFM/PEM/CPSFC"):
         CPSFC = float(cpsfc.text)                       # power-specific fuel consumption coefficient
     for max_eff in root.findall("./PFM/PEM/max_eff"):
-        #TODO: convert max_eff from hp to W
+        #TODO: convert max_eff from hp to W ?
         W_P_1_max_std_MSL = float(max_eff.text)         # maximum one-engine power in standard atmosphere at MSL [W],
                                                         # from the PEM where it is expressed in [hp]

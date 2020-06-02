@@ -62,7 +62,7 @@ def get_tracks_by_time(tracks_df, timestamp_begin, timestamp_end):
             df = df.drop(flight_id, level='flightId')
 
     print(len(df.groupby(level='flightId')))
-
+    
     #print((time.time()-time_start)/60)
     return df
 

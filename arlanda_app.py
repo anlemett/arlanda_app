@@ -115,6 +115,9 @@ def view_trajectories_form():
         TMA_tracks_m1_df = ddr.get_tracks_by_callsign(TMA_all_tracks_m1_df, callsign)
         TMA_tracks_m1_df = ddr.get_tracks_by_time(TMA_tracks_m1_df, timestamp_begin, timestamp_end)
             
+        #print("arlanda app")
+        #print(TMA_all_tracks_m1_df.head())
+        
         if request.form.get('checkbox-ddr-m3'):
             is_ddr_m3 = True
             TMA_tracks_m3_df = ddr.get_tracks_by_callsign(TMA_all_tracks_m3_df, callsign)
@@ -124,6 +127,8 @@ def view_trajectories_form():
             is_opensky = True
             TMA_tracks_opensky_df = opensky.get_tracks_by_callsign(TMA_all_tracks_opensky_df, callsign)
             TMA_tracks_opensky_df = opensky.get_tracks_by_time(TMA_tracks_opensky_df, timestamp_begin, timestamp_end)
+            
+            #print(TMA_all_tracks_opensky_df.head())
         
 
             #TMA Opensky states
@@ -164,7 +169,11 @@ def view_trajectories_plot():
     global TMA_tracks_opensky_df, TMA_states_opensky_df
     global callsign, in_out, date_begin, date_end, date_begin_str, date_end_str
     global is_ddr_m1, is_ddr_m3, is_opensky
-
+    
+    #print("arlanda app")
+    #print(TMA_all_tracks_m3_df.head())
+    #print(TMA_all_tracks_opensky_df.head())
+    
     filename_lat = 'traj_lat'
     
     if is_ddr_m1:

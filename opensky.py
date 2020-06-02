@@ -41,7 +41,6 @@ def get_tracks_by_time(all_tracks_df, timestamp_begin, timestamp_end):
         if (df.loc[flight_id].tail(1)['timestamp'].item() < timestamp_begin) | (df.loc[flight_id].tail(1)['timestamp'].item() > timestamp_end):
             df = df.drop(flight_id, level='flightId')
 
-
     return df
 
 
