@@ -39,9 +39,11 @@ if not os.path.exists(OUTPUT_DIR):
 if not os.path.exists(OUTPUT_PICTURES_DIR):
     os.makedirs(OUTPUT_PICTURES_DIR)
 
+'''
 TMA_all_tracks_m1_df = ddr.get_all_tracks(os.path.join(INPUT_DIR, TRACKS_TMA_DDR_M1_CSV))
 TMA_all_tracks_m3_df = ddr.get_all_tracks(os.path.join(INPUT_DIR, TRACKS_TMA_DDR_M3_CSV))
 TMA_all_tracks_opensky_df = opensky.get_all_tracks(os.path.join(INPUT_DIR, TRACKS_TMA_OPENSKY_CSV))
+'''
 #TMA_all_states_opensky_df = opensky.get_all_states(os.path.join(INPUT_DIR, STATES_TMA_OPENSKY_CSV))
 
 ddr_stat_by_day_df = ddr.get_stat(os.path.join(INPUT_DIR, STAT_DDR_BY_DAY_CSV))
@@ -78,7 +80,7 @@ def not_found(error):
 def index():
     return render_template('index.html')
 
-
+'''
 @app.route('/trajectories/', methods=['GET', 'POST'])
 def view_trajectories_form():
     global TMA_all_tracks_m1_df, TMA_tracks_m1_df
@@ -286,7 +288,7 @@ def view_opensky_calculate_fuel_old():
     opensky.calculate_fuel_inside_TMA_states(states_opensky_df, full_fuel_csv_filename, full_fuel_png_filename, full_vfe_csv_filename)
 
     return render_template('index.html')
-
+'''
 
 
 @app.route('/statistics/', methods=['GET', 'POST'])
