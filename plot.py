@@ -27,8 +27,8 @@ def make_traj_lat_ddr_plot(plt, tracks_df, color):
         lon = []
         lat = []
         for seq, row in new_df.groupby(level='sequence'):
-            lon.append(row.ix[(flight_id, seq)]['endLon'])
-            lat.append(row.ix[(flight_id, seq)]['endLat'])
+            lon.append(row.loc[(flight_id, seq)]['endLon'])
+            lat.append(row.loc[(flight_id, seq)]['endLat'])
                
         plt.plot(lon, lat, color=color, linewidth=3)
 
@@ -37,12 +37,12 @@ def make_traj_lat_opensky_plot(plt, tracks_df, color):
 
     for flight_id, new_df in tracks_df.groupby(level='flightId'):
         print("lateral plot")
-        print(flight_id)
+        #print(flight_id)
         lon = []
         lat = []
         for seq, row in new_df.groupby(level='sequence'):
-            lon.append(row.ix[(flight_id, seq)]['lon'])
-            lat.append(row.ix[(flight_id, seq)]['lat'])
+            lon.append(row.loc[(flight_id, seq)]['lon'])
+            lat.append(row.loc[(flight_id, seq)]['lat'])
         
         plt.plot(lon, lat, color=color, linewidth=3)
 
@@ -140,6 +140,7 @@ def make_traj_vert_plot(plt, is_ddr_m1, is_ddr_m3, is_opensky,
                         tracks_ddr_m1_df, tracks_ddr_m3_df, tracks_opensky_df, states_opensky_df):
     
     #print("plot")
+    print("vertical plot tracks")
     
     plt.figure(figsize=(9,6))
     plt.xlabel('Time [sec]', fontsize=25)
@@ -148,9 +149,9 @@ def make_traj_vert_plot(plt, is_ddr_m1, is_ddr_m3, is_opensky,
     plt.tick_params(labelsize=15)
     
     #DDR m1
-    pd.set_option('display.max_columns', 100)
+    #pd.set_option('display.max_columns', 100)
     print("ddr m1")
-    print(tracks_ddr_m1_df.head())
+    #print(tracks_ddr_m1_df.head())
     for flight_id, flight_id_group in tracks_ddr_m1_df.groupby(level='flightId'):
         print("ddr m1", flight_id)
         ddr_m1_altitudes = []
@@ -169,8 +170,8 @@ def make_traj_vert_plot(plt, is_ddr_m1, is_ddr_m3, is_opensky,
         
         
     #DDR m3
-    print("ddr m3")
-    print(tracks_ddr_m3_df.head())
+    #print("ddr m3")
+    #print(tracks_ddr_m3_df.head())
     for flight_id, flight_id_group in tracks_ddr_m3_df.groupby(level='flightId'):
         print("ddr m3", flight_id)
         if is_ddr_m3:
@@ -189,12 +190,27 @@ def make_traj_vert_plot(plt, is_ddr_m1, is_ddr_m3, is_opensky,
             
             try:
                 
-                print("vertical plot tracks")
-                print(flight_id)
                 print("opensky tracks")
                 print(tracks_opensky_df.head())
-        
-                flight_tracks_opensky_df = tracks_opensky_df.loc[(flight_id,), :]
+                
+                        
+                print("flight_tracks_opensky_df")
+                print(flight_id)
+                
+                flight_end_date = flight_id_group['endDate'].tolist()[-1]
+                print("flight end date")
+                print(flight_end_date)
+                #flight_tracks_opensky_df = tracks_opensky_df.loc[(flight_id,), :]    # does not work because of wrong merge
+                osn_flight_id = 0
+                flight_tracks_opensky_df = pd.DataFrame()
+                for temp_id, osn_flight_group in tracks_opensky_df.groupby(level='flightId'):
+                    osn_end_date = osn_flight_group['endDate'].tolist()[-1]
+                    print(osn_end_date)
+                    if osn_end_date == flight_end_date:
+                        osn_flight_id = temp_id
+                        flight_tracks_opensky_df = tracks_opensky_df.loc[(osn_flight_id,), :]
+                
+                print(flight_tracks_opensky_df)
       
                 opensky_timestamp1 = flight_tracks_opensky_df.head(1)['timestamp'].item()
     
@@ -243,7 +259,7 @@ def make_traj_vert_plot(plt, is_ddr_m1, is_ddr_m3, is_opensky,
                 print("vertical plot states")
                 print(flight_id)
                 
-                flight_states_opensky_df = states_opensky_df.loc[(flight_id,), :]
+                flight_states_opensky_df = states_opensky_df.loc[(osn_flight_id,), :]
                 
                 if not flight_states_opensky_df.empty:
                     opensky_states_altitudes = []
@@ -330,7 +346,7 @@ def save_traj_vert_plot(full_filename, is_ddr_m1, is_ddr_m3, is_opensky,
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
     import matplotlib.patches as mpatches
-
+    
     make_traj_vert_plot(plt, is_ddr_m1, is_ddr_m3, is_opensky, tracks_ddr_m1_df, tracks_ddr_m3_df, tracks_opensky_df, states_opensky_df)
     
     m1_color_patch = mpatches.Patch(color=DDR_M1_ALTITUDES_COLOR, label='DDR m1')

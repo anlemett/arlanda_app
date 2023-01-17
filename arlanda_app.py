@@ -1,3 +1,5 @@
+#TODO: make another flight_id - ICAO + date
+
 from config import (DEBUG, PORT, HOST,
                     INPUT_DIR, OUTPUT_DIR, OUTPUT_PICTURES_DIR,
                     DDR_M1, DDR_M3, OPENSKY, DDR_M1_M3, DDR_M1_OPENSKY, STAT, FUEL, VFE, VP 
@@ -47,6 +49,8 @@ TMA_all_tracks_opensky_df = opensky.get_all_tracks(os.path.join(INPUT_DIR, TRACK
 ddr_stat_by_day_df = ddr.get_stat(os.path.join(INPUT_DIR, STAT_DDR_BY_DAY_CSV))
 opensky_stat_by_day_df = opensky.get_stat(os.path.join(INPUT_DIR, STAT_OPENSKY_BY_DAY_CSV))
 
+
+#TODO: for the real web server these dfs should be session variables (e.g. session['TMA_tracks_m1_df'] )
 TMA_tracks_m1_df = pd.DataFrame()
 TMA_tracks_m3_df = pd.DataFrame()
 TMA_tracks_opensky_df = pd.DataFrame()
@@ -54,7 +58,6 @@ TMA_states_opensky_df = pd.DataFrame()
 
 #metar_df = weather.get_metar_df(os.path.join(INPUT_DIR, METAR_CSV))
 #grib_df = weather.get_grib_df(os.path.join(INPUT_DIR, GRIB_CSV))
-
 
 
 #TODO: make parameters instead of global:
@@ -122,14 +125,13 @@ def view_trajectories_form():
             is_ddr_m3 = True
             TMA_tracks_m3_df = ddr.get_tracks_by_callsign(TMA_all_tracks_m3_df, callsign)
             TMA_tracks_m3_df = ddr.get_tracks_by_time(TMA_tracks_m3_df, timestamp_begin, timestamp_end)
-            
+        
         if request.form.get('checkbox-opensky'):       
             is_opensky = True
             TMA_tracks_opensky_df = opensky.get_tracks_by_callsign(TMA_all_tracks_opensky_df, callsign)
             TMA_tracks_opensky_df = opensky.get_tracks_by_time(TMA_tracks_opensky_df, timestamp_begin, timestamp_end)
             
             #print(TMA_all_tracks_opensky_df.head())
-        
 
             #TMA Opensky states
             month_begin = datetime.fromtimestamp(timestamp_begin).month

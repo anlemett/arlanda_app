@@ -13,7 +13,8 @@ class TrajectoriesForm(Form):
     #time_begin = TimeField('Start time:', [validators.InputRequired()], render_kw={"value": "00:00"})
     #time_end = TimeField('End time:', [validators.InputRequired()], render_kw={"value": "01:00"})
     date_begin = DateField('Start date:', [validators.InputRequired()], render_kw={"value": "2018-01-01"})
-    date_end = DateField('End date:', [validators.InputRequired()], render_kw={"value": "2018-01-31"})
+    #date_end = DateField('End date:', [validators.InputRequired()], render_kw={"value": "2018-01-08"})
+    date_end = DateField('End date:', [validators.InputRequired()], render_kw={"value": "2018-01-01"})
     callsign = StringField('Callsign:', [validators.DataRequired()])
     #in_out = SelectField('International/Domestic:', choices = [('all', 'All'),
     #    ('international', 'International'), ('domestic', 'Domestic')])
